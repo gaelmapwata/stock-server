@@ -1,10 +1,17 @@
 # NODE TYPESCRIPT STARTER
 
+## Features
+
+In this module we use `jsonwebtoken` to protect the routes of this api
+
+https://github.com/auth0/node-jsonwebtoken#readme
+
 ## Installation
 
 1. Add environnement variables `cp .env.example .env`
 1. Install dependencies: `yarn install`
-2. Build TS to JS: `yarn build`
+1. Build TS to JS: `yarn build`
+1. Update ***JWT_SECRET*** key in ***.env***
 
 ## Run development server
 
@@ -20,6 +27,7 @@ Build for production and launch server:
 yarn build
 yarn start
 ```
+
 
 ## Generate static project
 
