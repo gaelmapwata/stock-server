@@ -1,10 +1,11 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import http from 'http';
 import expressFormData from 'express-form-data';
 import os from 'os';
 import cors from 'cors';
 import path from 'path';
+import router from './router';
 
 /**
  * Create express instance and initialize dotenv
@@ -45,10 +46,7 @@ app.use(expressFormData.parse(options));
 /**
  * Bind router to app
  */
-
-app.use('/', (req: Request, res: Response) => {
-  res.send('HELLO WORD !!');
-});
+app.use('/api', router);
 
 /**
  * Run server

@@ -10,6 +10,8 @@
 
 Serve with hot reload at http://localhost:port/ : `yarn dev`
 
+Api will runing on  http://localhost:port/api
+
 ## Run production server
 
 Build for production and launch server:
