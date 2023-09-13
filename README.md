@@ -25,3 +25,9 @@ yarn start
 
 `yarn generate`
 
+
+## DOCKER
+
+- Create image `docker build . -t node-typecript-starter`
+
+- Run container `docker run -p 8000:8000 -d node-typecript-starter`
