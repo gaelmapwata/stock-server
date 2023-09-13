@@ -17,17 +17,20 @@ The `docker-compose.yml` file, also is configured to connect the project on a My
 
 ### Note on usage of Typescript with Sequelize
 
-The plugin used to combine typescript and sequelize is not the official of `sequelize.org`
-But as precised in the documentation, it still in work in progress. And recommand to use package `sequelize-typescript`
-until their improvements are ready to be released.
+The plugin used to combine typescript and sequelize is not the official of `sequelize.org`.
+But as precised in the documentation, it still in work in progress. They recommand to use package `sequelize-typescript` 
+(https://www.npmjs.com/package/sequelize-typescript) until their improvements are ready to be released.
+
+Please check the official page to be informed on a potential update (https://sequelize.org/docs/v6/other-topics/typescript/)
 
 ## Installation
 
 1. Add environnement variables `cp .env.example .env`
-1. Install dependencies: `yarn install`
-1. Build TS to JS: `yarn build`
-1. Run migrations: `yarn sequelize-cli db:migrate`
-1. Run seeders: `yarn sequelize-cli db:migrate`
+2. Update variables in `.env` file
+3. Install dependencies: `yarn install`
+4. Build TS to JS: `yarn build`
+5. Run migrations: `yarn sequelize-cli db:migrate`
+6. Run seeders: `yarn sequelize-cli db:seed`
 
 ## Run development server
 
