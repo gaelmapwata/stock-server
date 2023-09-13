@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
-import http from 'http'
+import http from 'http';
 import expressFormData from 'express-form-data';
 import os from 'os';
 import cors from 'cors';
@@ -42,7 +42,6 @@ const options = {
 };
 app.use(expressFormData.parse(options));
 
-
 /**
  * Bind router to app
  */
@@ -50,7 +49,6 @@ app.use(expressFormData.parse(options));
 app.use('/', (req: Request, res: Response) => {
   res.send('HELLO WORD !!');
 });
-
 
 /**
  * Run server
