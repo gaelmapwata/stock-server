@@ -20,4 +20,6 @@ router.get('/users/:id', UserController.show);
 router.put('/users/:id', UserController.update as any);
 router.delete('/users/:id', UserController.delete);
 
+// ----------
+
 export default router;
