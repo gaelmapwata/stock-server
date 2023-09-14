@@ -1,3 +1,6 @@
+// TODO: Should fix this "any" issue
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import express, { Request, Response } from 'express';
 import AuthController from '../controllers/AuthController';
 import authJwt from '../middleware/authJwt';
@@ -8,8 +11,6 @@ router.get('/', (_: Request, res: Response) => {
   res.send('HELLO WORD !!');
 });
 
-// TODO: Should fix this any issue
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 router.post('/auth/signin', AuthController.signin as any);
 router.get('/auth/user', [authJwt.verifyToken], AuthController.getCurrentUser);
 
