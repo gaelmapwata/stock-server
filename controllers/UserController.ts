@@ -52,6 +52,11 @@ export default {
           fields: User.fillable,
         });
 
+        const { roles } = req.body;
+        if (roles) {
+          await user.$add('roles', roles);
+        }
+
         return res.status(201).json(user);
       } catch (error) {
         return res.status(500).json(error);
@@ -98,7 +103,35 @@ export default {
 
         const newUser = await User.findByPk(id);
 
+        const { roles } = req.body;
+        if (roles && newUser) {
+          await newUser.$set('roles', roles);
+        }
+
         return res.status(200).json(newUser);
+      } catch (error) {
+        return res.status(500).json(error);
+      }
+    },
+  ],
+
+  addRoles: [
+    checkSchema(userValidators.addRolesSchema),
+    async (req: Request, res: Response) => {
+      try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          return res.status(400).json({ msg: errors.array() });
+        }
+        const user = await User.findByPk(req.params.id);
+        if (!user) {
+          return res.status(404).json({ msg: 'L\'utilisateur n\'a pas été retrouver' });
+        }
+
+        const { roles } = req.body;
+        await user.$add('roles', roles);
+
+        return res.status(201).json(user);
       } catch (error) {
         return res.status(500).json(error);
       }

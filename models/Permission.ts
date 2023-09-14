@@ -18,6 +18,17 @@ export default class Permission extends Model {
     UPDATE: 'USER:UPDATE',
   };
 
+  static ROLE = {
+    CREATE: 'ROLE:CREATE',
+    READ: 'ROLE:READ',
+    DELETE: 'ROLE:DELETE',
+    UPDATE: 'ROLE:UPDATE',
+  };
+
+  static RESSOURCE = {
+    READ: 'ROLE:READ',
+  };
+
   @ForeignKey(() => Ressource)
   @Column
     ressourceId!: number;

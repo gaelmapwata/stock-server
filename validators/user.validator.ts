@@ -60,7 +60,28 @@ const userValidators = {
         errorMessage: 'Le champ "password" doit être une chaîne de caractère valide',
       },
     },
+    roles: {
+      optional: true,
+      isArray: {
+        errorMessage: 'Le champ "roles" doit être un tableau',
+      },
+    },
+    'roles.*': {
+      isInt: true,
+    },
   },
+
+  addRolesSchema: {
+    roles: {
+      isArray: {
+        errorMessage: 'Le champ "roles" doit être un tableau',
+      },
+    },
+    'roles.*': {
+      isInt: true,
+    },
+  },
+
 };
 
 export default userValidators;
