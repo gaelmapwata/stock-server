@@ -28,7 +28,7 @@ router.get('/auth/user', [authJwt.verifyToken], AuthController.getCurrentUser);
 router.get('/users', UserController.index);
 router.post('/users', UserController.store as any);
 router.get('/users/:id', UserController.show);
-router.put('/users/:id', UserController.update as any);
+router.put('/users/:id', [authJwt.verifyToken, authJwt.paramIdIsLoggedUserId], UserController.update as any);
 router.delete('/users/:id', UserController.delete);
 
 // ----------

@@ -32,4 +32,13 @@ export default {
       next();
     });
   },
+
+  paramIdIsLoggedUserId(req: Request, res: Response, next: NextFunction) {
+    if (!req.userId || req.userId !== +req.params.id) {
+      return res.status(403).json({
+        message: 'Vous n\'êtes pas authorisé à effectuer cette action !',
+      });
+    }
+    return next();
+  },
 };

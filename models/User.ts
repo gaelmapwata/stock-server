@@ -13,6 +13,6 @@ export default class User extends Model {
   @Column
     email!: string;
 
-  @Column()
+  @Column
     password!: string;
 }
