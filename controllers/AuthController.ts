@@ -1,9 +1,11 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import bcrypt from 'bcryptjs';
 import { checkSchema, validationResult } from 'express-validator';
 import { USERS } from '../utils/user.utils';
 import authValidators from '../validators/auth.validator';
+import { Request } from '../types/expressOverride';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const jwt = require('jsonwebtoken');
 
 const TOKEN_EXPIRATION_TIME_IN_MS = 2592000; // 30 days
@@ -38,7 +40,7 @@ export default {
       const token = jwt.sign({ id: userToLogin.id }, process.env.JWT_SECRET, {
         expiresIn: TOKEN_EXPIRATION_TIME_IN_MS,
       });
-      res.status(200).json({
+      return res.status(200).json({
         ...userToLogin,
         token,
       });
@@ -46,7 +48,7 @@ export default {
   ],
   getCurrentUser: async (req: Request, res: Response) => {
     try {
-      const loggedUser = USERS.find((user) => user.id === (req as any).userId);
+      const loggedUser = USERS.find((user) => user.id === req.userId);
       if (!loggedUser) {
         return res.status(401).send({ msg: "Ce compte n'a pas été retrouvé" });
       }

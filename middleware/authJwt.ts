@@ -1,5 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
+import { Request } from '../types/expressOverride';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const jwt = require('jsonwebtoken');
 
 export default {
@@ -20,13 +22,13 @@ export default {
       });
     }
 
-    return jwt.verify(token, process.env.JWT_SECRET, (err: null, decoded: any) => {
+    return jwt.verify(token, process.env.JWT_SECRET, (err: null, decoded: { id: number }) => {
       if (err) {
         res.status(401).json({
           message: 'Veuillez vous connectez !',
         });
       }
-      (req as any).userId = decoded.id;
+      req.userId = decoded.id;
       next();
     });
   },
