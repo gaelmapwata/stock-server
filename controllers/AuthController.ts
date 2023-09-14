@@ -4,6 +4,8 @@ import { checkSchema, validationResult } from 'express-validator';
 import authValidators from '../validators/auth.validator';
 import { Request } from '../types/expressOverride';
 import User from '../models/User';
+import Role from '../models/Role';
+import Permission from '../models/Permission';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const jwt = require('jsonwebtoken');
@@ -50,7 +52,9 @@ export default {
   ],
   getCurrentUser: async (req: Request, res: Response) => {
     try {
-      const loggedUser = await User.findByPk(req.userId as number);
+      const loggedUser = await User.findByPk(req.userId as number, {
+        include: [{ model: Role, include: [Permission] }],
+      });
       if (!loggedUser) {
         return res.status(401).send({ msg: "Ce compte n'a pas été retrouvé" });
       }

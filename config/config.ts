@@ -14,6 +14,7 @@ export const development = {
     bigNumberStrings: true,
   },
   logging: false,
+  seederStorage: 'sequelize',
 };
 export const test = {
   username: process.env.CI_DB_USERNAME,
@@ -40,4 +41,5 @@ export const production = {
     // },
   },
   logging: false,
+  seederStorage: 'sequelize',
 };
