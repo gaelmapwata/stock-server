@@ -4,11 +4,11 @@ import User from '../models/User';
 const userValidators = {
   storeSchema: {
     email: {
-      isEmail: {
-        errorMessage: 'Le champ "Email" est invalide',
-      },
       notEmpty: {
         errorMessage: 'Le champ "Email" est obligatoire',
+      },
+      isEmail: {
+        errorMessage: 'Le champ "Email" doit-être un email invalide',
       },
       custom: {
         options: async (value: string) => {
@@ -22,15 +22,21 @@ const userValidators = {
         },
       },
     },
+    password: {
+      isString: {
+        errorMessage: 'Le champ "password" doit être une chaîne de caractère valide',
+      },
+      notEmpty: {
+        errorMessage: 'Le champ "password" est obligatoire',
+      },
+    },
   },
 
   updateSchema: {
     email: {
+      optional: true,
       isEmail: {
-        errorMessage: 'Le champ "Email" est invalide',
-      },
-      notEmpty: {
-        errorMessage: 'Le champ "Email" est obligatoire',
+        errorMessage: 'Le champ "Email" doit-être un email invalide',
       },
       custom: {
         options: async (value: string, { req }: { req: unknown }) => {
@@ -46,6 +52,12 @@ const userValidators = {
             }
           }
         },
+      },
+    },
+    password: {
+      optional: true,
+      isString: {
+        errorMessage: 'Le champ "password" doit être une chaîne de caractère valide',
       },
     },
   },

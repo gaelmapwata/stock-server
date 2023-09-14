@@ -1,9 +1,9 @@
 import { Response } from 'express';
 import bcrypt from 'bcryptjs';
 import { checkSchema, validationResult } from 'express-validator';
-import { USERS } from '../utils/user.utils';
 import authValidators from '../validators/auth.validator';
 import { Request } from '../types/expressOverride';
+import User from '../models/User';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const jwt = require('jsonwebtoken');
@@ -13,13 +13,15 @@ const TOKEN_EXPIRATION_TIME_IN_MS = 2592000; // 30 days
 export default {
   signin: [
     checkSchema(authValidators.signinSchema),
-    (req: Request, res: Response) => {
+    async (req: Request, res: Response) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ msg: errors.array() });
       }
 
-      const userToLogin = USERS.find((user) => user.email === req.body.email);
+      const userToLogin = await User.findOne(
+        { where: { email: req.body.email } },
+      );
 
       if (!userToLogin) {
         return res.status(401).send({ message: "Ce compte n'a pas été retrouvé" });
@@ -41,14 +43,14 @@ export default {
         expiresIn: TOKEN_EXPIRATION_TIME_IN_MS,
       });
       return res.status(200).json({
-        ...userToLogin,
+        user: userToLogin,
         token,
       });
     },
   ],
   getCurrentUser: async (req: Request, res: Response) => {
     try {
-      const loggedUser = USERS.find((user) => user.id === req.userId);
+      const loggedUser = await User.findByPk(req.userId as number);
       if (!loggedUser) {
         return res.status(401).send({ msg: "Ce compte n'a pas été retrouvé" });
       }

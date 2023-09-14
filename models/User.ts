@@ -8,8 +8,11 @@ import {
   paranoid: true,
 })
 export default class User extends Model {
-  static fillable = ['email'];
+  static fillable = ['email', 'password'];
 
   @Column
     email!: string;
+
+  @Column()
+    password!: string;
 }

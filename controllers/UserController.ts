@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { checkSchema, validationResult } from 'express-validator';
 import User from '../models/User';
 import userValidators from '../validators/user.validator';
+import { bcryptHashPassword } from '../utils/bcrypt.util';
 
 export default {
   index: async (req: Request, res: Response) => {
@@ -16,6 +17,7 @@ export default {
         ...limitQuery,
         offset,
         order: ['email'],
+        attributes: { exclude: ['password'] },
       });
 
       const usersSize = usersAndCount.count;
@@ -41,7 +43,12 @@ export default {
         if (!errors.isEmpty()) {
           return res.status(400).json({ msg: errors.array() });
         }
-        const user = await User.create(req.body, {
+
+        const hashedPassword = await bcryptHashPassword(req.body.password);
+        const user = await User.create({
+          ...req.body,
+          password: hashedPassword,
+        }, {
           fields: User.fillable,
         });
 
@@ -55,7 +62,9 @@ export default {
   show: async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const user = await User.findByPk(id);
+      const user = await User.findByPk(id, {
+        attributes: { exclude: ['password'] },
+      });
       return res.status(200).json(user);
     } catch (error) {
       return res.status(500).json(error);
@@ -71,6 +80,12 @@ export default {
           return res.status(400).json({ msg: errors.array() });
         }
         const { id } = req.params;
+
+        if (req.body.password) {
+          req.body.password = await bcryptHashPassword(req.body.password);
+        } else {
+          delete req.body.password;
+        }
         await User.update(
           req.body,
           {
