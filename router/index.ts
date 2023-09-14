@@ -3,12 +3,23 @@
 
 import express, { Request, Response } from 'express';
 import UserController from '../controllers/UserController';
+import AuthController from '../controllers/AuthController';
+import authJwt from '../middleware/authJwt';
 
 const router = express.Router();
 
 router.get('/', (_: Request, res: Response) => {
   res.send('HELLO WORD !!');
 });
+
+/**
+ * auth routes
+ */
+
+router.post('/auth/signin', AuthController.signin as any);
+router.get('/auth/user', [authJwt.verifyToken], AuthController.getCurrentUser);
+
+// ----------
 
 /**
  * routes users
@@ -21,5 +32,9 @@ router.put('/users/:id', UserController.update as any);
 router.delete('/users/:id', UserController.delete);
 
 // ----------
+
+router.get('/protected', [authJwt.verifyToken], (_: Request, res: Response) => {
+  res.send('You have access to protected content !! ');
+});
 
 export default router;
