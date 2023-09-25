@@ -16,7 +16,8 @@
     "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "express-form-data": "^2.0.22"
+    "express-form-data": "^2.0.22",
+    "express-validator": "^7.0.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.14",
