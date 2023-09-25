@@ -1,9 +1,10 @@
 import { Response } from 'express';
 import bcrypt from 'bcryptjs';
-import { checkSchema, validationResult } from 'express-validator';
+import { checkSchema } from 'express-validator';
 import { USERS } from '../utils/user.utils';
 import authValidators from '../validators/auth.validator';
 import { Request } from '../types/expressOverride';
+import { handleExpressValidators } from '../utils/express.util';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const jwt = require('jsonwebtoken');
@@ -14,10 +15,7 @@ export default {
   signin: [
     checkSchema(authValidators.signinSchema),
     (req: Request, res: Response) => {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ msg: errors.array() });
-      }
+      handleExpressValidators(req, res);
 
       const userToLogin = USERS.find((user) => user.email === req.body.email);
 
