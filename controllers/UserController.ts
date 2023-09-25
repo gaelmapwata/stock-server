@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
-import { checkSchema, validationResult } from 'express-validator';
+import { checkSchema } from 'express-validator';
 import User from '../models/User';
 import userValidators from '../validators/user.validator';
 import { bcryptHashPassword } from '../utils/bcrypt.util';
+import Utilities from '../utils/utilities.utils';
 
 export default {
   index: async (req: Request, res: Response) => {
@@ -39,10 +40,7 @@ export default {
     checkSchema(userValidators.storeSchema),
     async (req: Request, res: Response) => {
       try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-          return res.status(400).json({ msg: errors.array() });
-        }
+        Utilities.handleExpressValidators(req, res);
 
         const hashedPassword = await bcryptHashPassword(req.body.password);
         const user = await User.create({
@@ -80,10 +78,8 @@ export default {
     checkSchema(userValidators.updateSchema),
     async (req: Request, res: Response) => {
       try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-          return res.status(400).json({ msg: errors.array() });
-        }
+        Utilities.handleExpressValidators(req, res);
+
         const { id } = req.params;
 
         if (req.body.password) {
