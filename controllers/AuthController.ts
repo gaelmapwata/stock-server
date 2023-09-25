@@ -1,8 +1,9 @@
 import { Response } from 'express';
 import bcrypt from 'bcryptjs';
-import { checkSchema, validationResult } from 'express-validator';
+import { checkSchema } from 'express-validator';
 import authValidators from '../validators/auth.validator';
 import { Request } from '../types/expressOverride';
+import { handleExpressValidators } from '../utils/express.util';
 import User from '../models/User';
 import Role from '../models/Role';
 import Permission from '../models/Permission';
@@ -16,10 +17,7 @@ export default {
   signin: [
     checkSchema(authValidators.signinSchema),
     async (req: Request, res: Response) => {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ msg: errors.array() });
-      }
+      handleExpressValidators(req, res);
 
       const userToLogin = await User.findOne(
         { where: { email: req.body.email } },

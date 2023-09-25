@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
-import { checkSchema, validationResult } from 'express-validator';
+import { checkSchema } from 'express-validator';
 import Role from '../models/Role';
 import Permission from '../models/Permission';
 import Ressource from '../models/Ressource';
 import roleValidators from '../validators/role.validator';
+import { handleExpressValidators } from '../utils/express.util';
 
 function groupPermissionsByRessources(permissions: Permission[]): Ressource[] {
   const ressources: Ressource[] = [];
@@ -44,10 +45,8 @@ export default {
     checkSchema(roleValidators.storeSchema),
     async (req: Request, res: Response) => {
       try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-          return res.status(400).json({ msg: errors.array() });
-        }
+        handleExpressValidators(req, res);
+
         const role = await Role.create(req.body);
         return res.status(201).json(role);
       } catch (error) {
@@ -76,10 +75,8 @@ export default {
     checkSchema(roleValidators.addPermissionSchema),
     async (req: Request, res: Response) => {
       try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-          return res.status(400).json({ msg: errors.array() });
-        }
+        handleExpressValidators(req, res);
+
         const role = await Role.findByPk(req.params.id);
         if (!role) {
           return res.status(404).json({ msg: 'Le role n\'a pas été retrouvé' });
@@ -98,10 +95,8 @@ export default {
     checkSchema(roleValidators.updatePermissionSchema),
     async (req: Request, res: Response) => {
       try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-          return res.status(400).json({ msg: errors.array() });
-        }
+        handleExpressValidators(req, res);
+
         const role = await Role.findByPk(req.params.id);
         if (!role) {
           return res.status(404).json({ msg: 'Le role n\'a pas été retrouvé' });
@@ -120,10 +115,7 @@ export default {
     checkSchema(roleValidators.updateSchema),
     async (req: Request, res: Response) => {
       try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-          return res.status(400).json({ msg: errors.array() });
-        }
+        handleExpressValidators(req, res);
 
         const { id } = req.params;
         await Role.update(
