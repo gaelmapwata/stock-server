@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import bcrypt from 'bcryptjs';
 import { checkSchema } from 'express-validator';
-import { USERS } from '../utils/user.utils';
+import { USERS } from '../utils/user.util';
 import authValidators from '../validators/auth.validator';
 import { Request } from '../types/expressOverride';
 import { handleExpressValidators } from '../utils/express.util';
