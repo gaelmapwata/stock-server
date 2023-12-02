@@ -26,7 +26,7 @@ Please check the official page to be informed on a potential update (https://seq
 ## Installation
 
 1. Add environnement variables `cp .env.example .env`
-2. Update variables in `.env` file, don't forget to define `JWT_SECRET` 
+2. Update variables in `.env` file
 3. Install dependencies: `yarn install`
 4. Build TS to JS: `yarn build`
 5. Run migrations: `yarn sequelize-cli db:migrate`
