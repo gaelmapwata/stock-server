@@ -39,7 +39,7 @@ https://github.com/auth0/node-jsonwebtoken#readme
 4. Install dependencies: `yarn install`
 5. Build TS to JS: `yarn build`
 6. Run migrations: `yarn sequelize-cli db:migrate`
-7. Run seeders: `yarn sequelize-cli db:seed`
+7. Run seeders: `yarn sequelize-cli db:seed:all`
 
 ## Run development server
 
