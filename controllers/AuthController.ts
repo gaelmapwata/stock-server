@@ -15,7 +15,9 @@ export default {
   signin: [
     checkSchema(authValidators.signinSchema),
     (req: Request, res: Response) => {
-      handleExpressValidators(req, res);
+      if (handleExpressValidators(req, res)) {
+        return null
+      }
 
       const userToLogin = USERS.find((user) => user.email === req.body.email);
 
