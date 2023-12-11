@@ -17,7 +17,9 @@ export default {
   signin: [
     checkSchema(authValidators.signinSchema),
     async (req: Request, res: Response) => {
-      handleExpressValidators(req, res);
+      if (handleExpressValidators(req, res)) {
+        return null
+      }
 
       const userToLogin = await User.findOne(
         { where: { email: req.body.email } },
