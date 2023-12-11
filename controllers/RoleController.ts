@@ -45,7 +45,9 @@ export default {
     checkSchema(roleValidators.storeSchema),
     async (req: Request, res: Response) => {
       try {
-        handleExpressValidators(req, res);
+        if (handleExpressValidators(req, res)) {
+          return null
+        }
 
         const role = await Role.create(req.body);
         return res.status(201).json(role);
@@ -75,7 +77,9 @@ export default {
     checkSchema(roleValidators.addPermissionSchema),
     async (req: Request, res: Response) => {
       try {
-        handleExpressValidators(req, res);
+        if (handleExpressValidators(req, res)) {
+          return null
+        }
 
         const role = await Role.findByPk(req.params.id);
         if (!role) {
@@ -95,7 +99,9 @@ export default {
     checkSchema(roleValidators.updatePermissionSchema),
     async (req: Request, res: Response) => {
       try {
-        handleExpressValidators(req, res);
+        if (handleExpressValidators(req, res)) {
+          return null
+        }
 
         const role = await Role.findByPk(req.params.id);
         if (!role) {
@@ -115,7 +121,9 @@ export default {
     checkSchema(roleValidators.updateSchema),
     async (req: Request, res: Response) => {
       try {
-        handleExpressValidators(req, res);
+        if (handleExpressValidators(req, res)) {
+          return null
+        }
 
         const { id } = req.params;
         await Role.update(

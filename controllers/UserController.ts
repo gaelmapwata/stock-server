@@ -119,7 +119,9 @@ export default {
     checkSchema(userValidators.addRolesSchema),
     async (req: Request, res: Response) => {
       try {
-        handleExpressValidators(req, res);
+        if (handleExpressValidators(req, res)) {
+          return null
+        }
 
         const user = await User.findByPk(req.params.id);
         if (!user) {
