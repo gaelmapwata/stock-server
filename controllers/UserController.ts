@@ -40,7 +40,9 @@ export default {
     checkSchema(userValidators.storeSchema),
     async (req: Request, res: Response) => {
       try {
-        handleExpressValidators(req, res);
+        if (handleExpressValidators(req, res)) {
+          return null
+        }
 
         const hashedPassword = await bcryptHashPassword(req.body.password);
         const user = await User.create({
@@ -78,7 +80,9 @@ export default {
     checkSchema(userValidators.updateSchema),
     async (req: Request, res: Response) => {
       try {
-        handleExpressValidators(req, res);
+        if (handleExpressValidators(req, res)) {
+          return null
+        }
 
         const { id } = req.params;
 
