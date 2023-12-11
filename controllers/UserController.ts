@@ -38,7 +38,9 @@ export default {
     checkSchema(userValidators.storeSchema),
     async (req: Request, res: Response) => {
       try {
-        handleExpressValidators(req, res);
+        if (handleExpressValidators(req, res)) {
+          return null
+        }
 
         const user = await User.create(req.body, {
           fields: User.fillable,
@@ -65,7 +67,9 @@ export default {
     checkSchema(userValidators.updateSchema),
     async (req: Request, res: Response) => {
       try {
-        handleExpressValidators(req, res);
+        if (handleExpressValidators(req, res)) {
+          return null
+        }
 
         const { id } = req.params;
         await User.update(
