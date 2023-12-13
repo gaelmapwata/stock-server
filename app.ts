@@ -6,6 +6,7 @@ import os from 'os';
 import cors from 'cors';
 import path from 'path';
 import router from './router';
+import sequelize from './sequelize-instance';
 
 /**
  * Create express instance and initialize dotenv
@@ -23,7 +24,7 @@ app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(cors({
-  origin: '',
+  origin: '*',
 }));
 app.use((_, res, next) => {
   res.header(
@@ -47,6 +48,19 @@ app.use(expressFormData.parse(options));
  * Bind router to app
  */
 app.use('/api', router);
+
+/**
+* Init Sequelize
+*/
+sequelize.authenticate()
+  .then(() => {
+    // eslint-disable-next-line no-console
+    console.log('Connection has been established successfully.');
+  })
+  .catch((error: Error) => {
+    // eslint-disable-next-line no-console
+    console.error('Unable to connect to the database:', error);
+  });
 
 /**
  * Run server
