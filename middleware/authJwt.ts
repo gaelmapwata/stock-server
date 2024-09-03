@@ -1,21 +1,24 @@
 import { Response, NextFunction } from 'express';
 import { Request } from '../types/expressOverride';
 import UserService from '../services/UserService';
+import BlacklistToken from '../models/BlacklistToken';
+import { TokenDecodedI, TokenTypeE } from '../types/Token';
+import User from '../models/User';
+import Role from '../models/Role';
+import Permission from '../models/Permission';
+import AuthService from '../services/AuthService';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const jwt = require('jsonwebtoken');
 
 export default {
-  shouldBeLogged: (req: Request, res: Response, next: NextFunction) => {
-    const authHeader = req.headers.authorization;
-
-    const bearer = authHeader && authHeader.split(' ')[0];
-
-    if (bearer !== 'Bearer') {
+  shouldBeLogged: async (req: Request, res: Response, next: NextFunction) => {
+    const tokenPrefix = AuthService.getLoggedTokenPrefix(req);
+    if (tokenPrefix !== 'Bearer') {
       return res.sendStatus(401);
     }
 
-    const token = authHeader && authHeader.split(' ')[1];
+    const token = AuthService.getLoggedToken(req);
 
     if (!token) {
       return res.status(403).json({
@@ -23,14 +26,45 @@ export default {
       });
     }
 
-    return jwt.verify(token, process.env.JWT_SECRET, (err: null, decoded: { id: number }) => {
+    const blacklistToken = await BlacklistToken.findOne({
+      where: {
+        token,
+        type: TokenTypeE.LOGGED_TOKEN,
+      },
+    });
+
+    if (blacklistToken) {
+      return res.status(409).json({
+        message: 'Session expirée, veuillez vous reconnecter !',
+      });
+    }
+
+    return jwt.verify(token, process.env.JWT_SECRET, (err: null, decoded: TokenDecodedI) => {
       if (err) {
         res.status(401).json({
           message: 'Veuillez vous connectez !',
         });
       }
-      req.userId = decoded.id;
-      next();
+
+      if (!decoded.type || decoded.type !== TokenTypeE.LOGGED_TOKEN) {
+        return res.status(409).json({
+          msg: 'Invalid token',
+        });
+      }
+
+      return User
+        .findByPk(decoded.id, { include: [{ model: Role, include: [Permission] }] })
+        .then((user) => {
+          if (!user) {
+            return res.status(401).json({
+              msg: 'This account has not been found',
+            });
+          }
+
+          req.userId = decoded.id;
+          req.user = user;
+          return next();
+        });
     });
   },
 

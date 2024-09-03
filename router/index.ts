@@ -8,6 +8,7 @@ import authJwt from '../middleware/authJwt';
 import Permission from '../models/Permission';
 import RessourceController from '../controllers/RessourceController';
 import RoleController from '../controllers/RoleController';
+import rateLimiting from '../middleware/rateLimiting';
 
 const router = express.Router();
 
@@ -19,8 +20,9 @@ router.get('/', (_: Request, res: Response) => {
  * auth routes
  */
 
-router.post('/auth/signin', AuthController.signin as any);
+router.post('/auth/signin', [rateLimiting.rateLimitMiddleware], AuthController.signin as any);
 router.get('/auth/user', [authJwt.shouldBeLogged], AuthController.getCurrentUser);
+router.post('/auth/logout', [authJwt.shouldBeLogged], AuthController.logout);
 
 // ----------
 

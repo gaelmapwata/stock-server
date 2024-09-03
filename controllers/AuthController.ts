@@ -7,18 +7,21 @@ import { handleExpressValidators } from '../utils/express.util';
 import User from '../models/User';
 import Role from '../models/Role';
 import Permission from '../models/Permission';
+import BlacklistToken from '../models/BlacklistToken';
+import { TokenTypeE } from '../types/Token';
+import AuthService from '../services/AuthService';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const jwt = require('jsonwebtoken');
 
-const TOKEN_EXPIRATION_TIME_IN_MS = 2592000; // 30 days
+const TOKEN_EXPIRATION_TIME_IN_SECONDS = 24 * 60 * 60; // 1 day
 
 export default {
   signin: [
     checkSchema(authValidators.signinSchema),
     async (req: Request, res: Response) => {
       if (handleExpressValidators(req, res)) {
-        return null
+        return null;
       }
 
       const userToLogin = await User.findOne(
@@ -41,8 +44,11 @@ export default {
         });
       }
 
-      const token = jwt.sign({ id: userToLogin.id }, process.env.JWT_SECRET, {
-        expiresIn: TOKEN_EXPIRATION_TIME_IN_MS,
+      const token = jwt.sign({
+        id: userToLogin.id,
+        type: TokenTypeE.LOGGED_TOKEN,
+      }, process.env.JWT_SECRET, {
+        expiresIn: TOKEN_EXPIRATION_TIME_IN_SECONDS,
       });
       return res.status(200).json({
         user: userToLogin,
@@ -60,6 +66,16 @@ export default {
       }
 
       return res.status(200).json(loggedUser);
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  },
+
+  logout: async (req: Request, res: Response) => {
+    try {
+      const token = AuthService.getLoggedToken(req);
+      const blacklistToken = await BlacklistToken.create({ token, type: TokenTypeE.LOGGED_TOKEN });
+      return res.status(201).json(blacklistToken);
     } catch (error) {
       return res.status(500).json(error);
     }
