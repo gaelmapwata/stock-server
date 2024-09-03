@@ -1,55 +1,37 @@
+import Permission from '../models/Permission';
 import Role from '../models/Role';
-import { Request } from '../types/expressOverride';
+import ValidatorHelper from './helpers/ValidatorHelper';
 
 const roleValidators = {
   storeSchema: {
-    name: {
-      notEmpty: true,
-      errorMessage: 'Le champ "name" est obligatoire',
-      custom: {
-        options: async (value: string) => {
-          if (await Role.findOne({ where: { name: value } })) {
-            throw new Error('Un role ayant ce nom existe déjà');
-          }
-        },
-      },
-    },
+    name: new ValidatorHelper('nom')
+      .notEmpty()
+      .notExistsInDB(Role, 'name')
+      .get(),
   },
   updateSchema: {
-    name: {
-      notEmpty: {
-        errorMessage: 'Le champ "name" est obligatoire',
-      },
-      custom: {
-        options: async (value: string, { req }: { req: unknown }) => {
-          const { id } = (req as Request).params;
-          const role = await Role.findByPk(id);
-          if (role && role.name !== value) {
-            if (await Role.findOne({ where: { name: value } })) {
-              throw new Error('Un role ayant ce nom existe déjà');
-            }
-          }
-        },
-      },
-    },
+    name: new ValidatorHelper('nom')
+      .notEmpty()
+      .notExistsInDBIfUpdated(Role, 'name')
+      .get(),
   },
   addPermissionSchema: {
-    permissions: {
-      isArray: true,
-      errorMessage: 'Le champ "permissions" doit être un tableau"',
-    },
-    'permissions.*': {
-      isInt: true,
-    },
+    permissions: new ValidatorHelper('permissions')
+      .isArray()
+      .get(),
+    'permissions.*': new ValidatorHelper('permission')
+      .isInt()
+      .existsInDB(Permission, 'id')
+      .get(),
   },
   updatePermissionSchema: {
-    permissions: {
-      isArray: true,
-      errorMessage: 'Le champ "permissions" doit être un tableau"',
-    },
-    'permissions.*': {
-      isInt: true,
-    },
+    permissions: new ValidatorHelper('permissions')
+      .isArray()
+      .get(),
+    'permissions.*': new ValidatorHelper('permission')
+      .isInt()
+      .existsInDB(Permission, 'id')
+      .get(),
   },
 };
 

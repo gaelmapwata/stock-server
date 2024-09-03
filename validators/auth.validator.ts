@@ -1,18 +1,14 @@
+import ValidatorHelper from './helpers/ValidatorHelper';
+
 const authValidators = {
   signinSchema: {
-    email: {
-      isEmail: {
-        errorMessage: 'Le champ "email" est invalide',
-      },
-      notEmpty: {
-        errorMessage: 'Le champ "email" est obligatoire',
-      },
-    },
-    password: {
-      notEmpty: {
-        errorMessage: 'Le champ "password" est obligatoire',
-      },
-    },
+    email: new ValidatorHelper('email')
+      .notEmpty()
+      .isEmail()
+      .get(),
+    password: new ValidatorHelper('mot de passe')
+      .notEmpty()
+      .get(),
   },
 };
 

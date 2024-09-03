@@ -41,7 +41,7 @@ export default {
     async (req: Request, res: Response) => {
       try {
         if (handleExpressValidators(req, res)) {
-          return null
+          return null;
         }
 
         const hashedPassword = await bcryptHashPassword(req.body.password);
@@ -81,7 +81,7 @@ export default {
     async (req: Request, res: Response) => {
       try {
         if (handleExpressValidators(req, res)) {
-          return null
+          return null;
         }
 
         const { id } = req.params;
@@ -120,7 +120,7 @@ export default {
     async (req: Request, res: Response) => {
       try {
         if (handleExpressValidators(req, res)) {
-          return null
+          return null;
         }
 
         const user = await User.findByPk(req.params.id);

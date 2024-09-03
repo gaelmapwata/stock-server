@@ -46,7 +46,7 @@ export default {
     async (req: Request, res: Response) => {
       try {
         if (handleExpressValidators(req, res)) {
-          return null
+          return null;
         }
 
         const role = await Role.create(req.body);
@@ -78,7 +78,7 @@ export default {
     async (req: Request, res: Response) => {
       try {
         if (handleExpressValidators(req, res)) {
-          return null
+          return null;
         }
 
         const role = await Role.findByPk(req.params.id);
@@ -100,7 +100,7 @@ export default {
     async (req: Request, res: Response) => {
       try {
         if (handleExpressValidators(req, res)) {
-          return null
+          return null;
         }
 
         const role = await Role.findByPk(req.params.id);
@@ -122,7 +122,7 @@ export default {
     async (req: Request, res: Response) => {
       try {
         if (handleExpressValidators(req, res)) {
-          return null
+          return null;
         }
 
         const { id } = req.params;
