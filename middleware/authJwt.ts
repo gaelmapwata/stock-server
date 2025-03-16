@@ -1,12 +1,12 @@
 import { Response, NextFunction } from 'express';
 import { Request } from '../types/expressOverride';
 import UserService from '../services/UserService';
-import BlacklistToken from '../models/BlacklistToken';
 import { TokenDecodedI, TokenTypeE } from '../types/Token';
 import User from '../models/User';
 import Role from '../models/Role';
 import Permission from '../models/Permission';
 import AuthService from '../services/AuthService';
+import BlacklistTokenService from '../services/BlacklistTokenService';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const jwt = require('jsonwebtoken');
@@ -26,14 +26,9 @@ export default {
       });
     }
 
-    const blacklistToken = await BlacklistToken.findOne({
-      where: {
-        token,
-        type: TokenTypeE.LOGGED_TOKEN,
-      },
-    });
+    const isTokenBlacklisted = await BlacklistTokenService.isTokenBlacklisted(token);
 
-    if (blacklistToken) {
+    if (isTokenBlacklisted) {
       return res.status(409).json({
         message: 'Session expirée, veuillez vous reconnecter !',
       });
