@@ -1,11 +1,11 @@
 import {
-  Table, Column, Model, BelongsToMany,
+  Table, Column, Model,
+  BelongsToMany,
 } from 'sequelize-typescript';
-import UserRole from './UserRole';
-import User from './User';
-import PermissionRole from './PermissionRole';
 import Permission from './Permission';
-import Ressource from './Ressource';
+import PermissionRole from './PermissionRole';
+import User from './User';
+import UserRole from './UserRole';
 
 @Table({
   tableName: 'roles',
@@ -13,16 +13,16 @@ import Ressource from './Ressource';
   paranoid: true,
 })
 export default class Role extends Model {
-  static fillable: string[] = ['name'];
+  static fillable = [
+    'name',
+  ];
 
   @Column
     name!: string;
 
-  @BelongsToMany(() => User, () => UserRole)
-    users!: User[];
-
   @BelongsToMany(() => Permission, () => PermissionRole)
     permissions!: Permission[];
 
-  ressources!: Ressource[];
+  @BelongsToMany(() => User, () => UserRole)
+    users!: User[];
 }

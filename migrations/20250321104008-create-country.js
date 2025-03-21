@@ -1,27 +1,24 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('permissions', {
+    await queryInterface.createTable('countries', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      slug: {
-        type: Sequelize.STRING,
-        unique: true,
-      },
-      name: {
+      label: {
         type: Sequelize.STRING,
       },
-      ressourceId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'ressources',
-          key: 'id',
-        },
+      code2: {
+        type: Sequelize.STRING,
+      },
+      code3: {
+        type: Sequelize.STRING,
+      },
+      telPrefixNum: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -31,13 +28,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      deletedAt: {
+      deleteAt: {
         allowNull: true,
         type: Sequelize.DATE,
       },
     });
   },
   async down(queryInterface) {
-    await queryInterface.dropTable('permissions');
+    await queryInterface.dropTable('countries');
   },
 };

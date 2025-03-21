@@ -3,15 +3,15 @@ import {
 } from 'sequelize-typescript';
 
 @Table({
-  tableName: 'ressources',
+  tableName: 'type_articles',
   timestamps: true,
   paranoid: true,
 })
-export default class Ressource extends Model {
+export default class TypeArticle extends Model {
   static fillable = [
-    'name',
+    'label',
   ];
 
   @Column
-    name!: string;
+    label!: string;
 }

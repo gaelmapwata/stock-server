@@ -1,5 +1,7 @@
 import {
-  Table, Column, Model, ForeignKey, BelongsTo,
+  Table, Column, Model,
+  ForeignKey,
+  BelongsTo,
 } from 'sequelize-typescript';
 
 import User from './User';
@@ -9,19 +11,18 @@ import Role from './Role';
   tableName: 'user_role',
   timestamps: true,
 })
+export default class PermissionRole extends Model {
+   @ForeignKey(() => User)
+    @Column
+     userId!: number;
 
-export default class UserRole extends Model {
-  @ForeignKey(() => User)
-  @Column
-    userId!: number;
+   @ForeignKey(() => Role)
+    @Column
+     roleId!: number;
 
-  @ForeignKey(() => Role)
-  @Column
-    roleId!: number;
+    @BelongsTo(() => User)
+      user!:User;
 
-  @BelongsTo(() => User)
-    user!: User;
-
-  @BelongsTo(() => Role)
-    role!: Role;
+    @BelongsTo(() => Role)
+      role!:Role;
 }
