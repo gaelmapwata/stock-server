@@ -11,7 +11,7 @@ import Role from './Role';
   tableName: 'user_role',
   timestamps: true,
 })
-export default class PermissionRole extends Model {
+export default class UserRole extends Model {
    @ForeignKey(() => User)
     @Column
      userId!: number;

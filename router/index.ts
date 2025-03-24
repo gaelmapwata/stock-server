@@ -8,6 +8,7 @@ import authJwt from '../middleware/authJwt';
 import Permission from '../models/Permission';
 import RessourceController from '../controllers/RessourceController';
 import RoleController from '../controllers/RoleController';
+import TypeArticleController from '../controllers/TypeArticleController';
 import rateLimiting from '../middleware/rateLimiting';
 
 const router = express.Router();
@@ -114,6 +115,38 @@ router.get(
   '/ressources',
   [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.RESSOURCE.READ)],
   RessourceController.index as any,
+);
+
+//-----------
+/**
+ * typeArticle routes
+ */
+
+router.get(
+  '/type-articles',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ROLE.READ)],
+  TypeArticleController.index,
+);
+router.post(
+  '/type-articles',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ROLE.CREATE)],
+  TypeArticleController.store as any,
+);
+
+router.get(
+  '/type-articles/:id',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ROLE.READ)],
+  TypeArticleController.show,
+);
+router.put(
+  '/type-articles/:id',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ROLE.UPDATE)],
+  TypeArticleController.update as any,
+);
+router.delete(
+  '/type-articles/:id',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ROLE.DELETE)],
+  TypeArticleController.delete,
 );
 
 // ----------

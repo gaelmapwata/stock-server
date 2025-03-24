@@ -1,37 +1,18 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('articles', {
+    await queryInterface.createTable('blacklist_tokens', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      label: {
+      token: {
         type: Sequelize.STRING,
       },
-      description: {
-        type: Sequelize.TEXT,
-      },
-      stockQuantity: {
-        type: Sequelize.INTEGER,
-      },
-      typeArticleId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'type_articles',
-          key: 'id',
-        },
-      },
-      userId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'users',
-          key: 'id',
-        },
+      type: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -48,6 +29,6 @@ module.exports = {
     });
   },
   async down(queryInterface) {
-    await queryInterface.dropTable('articles');
+    await queryInterface.dropTable('blacklist_tokens');
   },
 };

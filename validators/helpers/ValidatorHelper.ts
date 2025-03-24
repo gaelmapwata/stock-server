@@ -114,7 +114,7 @@ export default class ValidatorHelper {
     this.validatorChain
       .pushValidation({
         exists: {
-          errorMessage: `Le champ "${this.field}" est obligatoire`,
+          errorMessage: `Le champ "${this.field}" exist déjà`,
         },
       });
     return this;

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { checkSchema } from 'express-validator';
 import User from '../models/User';
 import userValidators from '../validators/user.validator';
-import { bcryptHashPassword } from '../utils/bcrypt.util';
+// import { bcryptHashPassword } from '../utils/bcrypt.util';
 import { handleExpressValidators } from '../utils/express.util';
 
 export default {
@@ -44,10 +44,10 @@ export default {
           return null;
         }
 
-        const hashedPassword = await bcryptHashPassword(req.body.password);
+        // const hashedPassword = await bcryptHashPassword(req.body.password);
         const user = await User.create({
           ...req.body,
-          password: hashedPassword,
+          // password: hashedPassword,
         }, {
           fields: User.fillable,
         });
@@ -86,11 +86,11 @@ export default {
 
         const { id } = req.params;
 
-        if (req.body.password) {
-          req.body.password = await bcryptHashPassword(req.body.password);
-        } else {
-          delete req.body.password;
-        }
+        // if (req.body.password) {
+        //   req.body.password = await bcryptHashPassword(req.body.password);
+        // } else {
+        //   delete req.body.password;
+        // }
         await User.update(
           req.body,
           {

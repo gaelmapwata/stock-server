@@ -1,5 +1,5 @@
-import { OptionalOptions } from 'express-validator/src/chain';
-import { IsFloatOptions, IsIntOptions } from 'express-validator/src/options';
+import { OptionalOptions } from 'express-validator/lib/chain';
+import { IsFloatOptions, IsIntOptions } from 'express-validator/lib/options';
 
 type ExpressValidationCustomOptionFunc =
   (value: (string | number), { req }: {req: unknown}) => (Promise<void> | void)
