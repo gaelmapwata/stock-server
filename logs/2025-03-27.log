@@ -1,0 +1,38 @@
+2025-03-27 08:38:08 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-03-27 08:38:08 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-03-27 08:38:33 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-03-27 08:47:55 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-03-27 08:47:55 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-03-27 08:48:27 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-03-27 08:58:43 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-03-27 08:58:43 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-03-27 08:59:03 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-03-27 09:10:43 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-03-27 09:10:43 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-03-27 09:11:08 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-03-27 09:16:17 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-03-27 09:16:17 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-03-27 09:16:37 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-03-27 09:36:16 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-03-27 09:36:16 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-03-27 09:36:41 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-03-27 09:59:17 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-03-27 09:59:17 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-03-27 09:59:43 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-03-27 09:59:55 | Request | user (gael.mapwata@ubagroup.com #1) initiate validation of a request, requestId: 1
+2025-03-27 09:59:55 | Request | request (1) validated by user (gael.mapwata@ubagroup.com #1)successfully
+2025-03-27 10:44:59 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-03-27 10:44:59 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-03-27 10:48:42 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-03-27 10:48:42 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-03-27 10:56:34 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-03-27 10:56:35 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-03-27 10:59:06 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-03-27 10:59:06 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-03-27 11:00:48 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-03-27 11:00:48 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-03-27 11:03:20 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-03-27 11:03:20 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-03-27 11:05:31 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-03-27 11:05:31 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-03-27 11:05:42 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification

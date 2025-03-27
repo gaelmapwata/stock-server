@@ -31,7 +31,6 @@ module.exports = {
         },
       },
       userApproved: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'users',

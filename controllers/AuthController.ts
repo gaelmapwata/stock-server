@@ -88,7 +88,7 @@ export default {
       });
 
       // create new OTP
-      // const { otp: userOTP } = await OtpService.createOtpForUser(req.body.email);
+      const { otp: userOTP } = await OtpService.createOtpForUser(req.body.email);
 
       // utilHelper.sendEmailNotification(
       //   req.body.email,
@@ -98,7 +98,7 @@ export default {
       //   UBA_MAIL_CONFIGS.OTP_EMAIL_MESSAGE.replace(/:otp/gi, userOTP),
       // );
 
-      // console.log(userOTP);
+      console.log(userOTP);
 
       LogHelper.info(`Auth | user ${req.body.email} successful logged with active directory, otp sended`);
 
@@ -121,6 +121,7 @@ export default {
     try {
       const user = req.passwordAuthData?.user as User;
       const otp = await OtpService.checkOtpFromUser(user.email, req.body.otp);
+
       // const otp = await EntrustService.sendEntrustToken(user.email, req.body.otp);
 
       if (!otp) {
@@ -134,7 +135,7 @@ export default {
         expiresIn: JWT_TIME_VALIDITY,
       });
 
-      // otp.destroy();
+      otp.destroy();
 
       LogHelper.info(`Auth | user ${user.email} successful logged with otp verification`);
 

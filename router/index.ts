@@ -8,7 +8,9 @@ import authJwt from '../middleware/authJwt';
 import Permission from '../models/Permission';
 import RessourceController from '../controllers/RessourceController';
 import RoleController from '../controllers/RoleController';
+import ArticleController from '../controllers/ArticleController';
 import TypeArticleController from '../controllers/TypeArticleController';
+import RequestController from '../controllers/RequestController';
 import rateLimiting from '../middleware/rateLimiting';
 
 const router = express.Router();
@@ -21,7 +23,8 @@ router.get('/', (_: Request, res: Response) => {
  * auth routes
  */
 
-router.post('/auth/signin', [rateLimiting.rateLimitMiddleware], AuthController.signin as any);
+router.post('/auth/signin', AuthController.signin as any);
+router.post('/auth/check-otp', [authJwt.verifyPasswordToken, rateLimiting.rateLimitMiddleware], AuthController.checkOtp);
 router.get('/auth/user', [authJwt.shouldBeLogged], AuthController.getCurrentUser);
 router.post('/auth/logout', [authJwt.shouldBeLogged], AuthController.logout);
 
@@ -124,32 +127,102 @@ router.get(
 
 router.get(
   '/type-articles',
-  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ROLE.READ)],
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.TYPE_ARTICLE.READ)],
   TypeArticleController.index,
 );
 router.post(
   '/type-articles',
-  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ROLE.CREATE)],
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.TYPE_ARTICLE.CREATE)],
   TypeArticleController.store as any,
 );
 
 router.get(
   '/type-articles/:id',
-  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ROLE.READ)],
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.TYPE_ARTICLE.READ)],
   TypeArticleController.show,
 );
 router.put(
   '/type-articles/:id',
-  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ROLE.UPDATE)],
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.TYPE_ARTICLE.UPDATE)],
   TypeArticleController.update as any,
 );
 router.delete(
   '/type-articles/:id',
-  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ROLE.DELETE)],
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.TYPE_ARTICLE.DELETE)],
   TypeArticleController.delete,
 );
 
+//-----------
+/**
+ * Article routes
+ */
+
+router.get(
+  '/articles',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ARTICLE.READ)],
+  ArticleController.index,
+);
+router.post(
+  '/articles',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ARTICLE.CREATE)],
+  ArticleController.store as any,
+);
+
+router.get(
+  '/articles/:id',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ARTICLE.READ)],
+  ArticleController.show,
+);
+router.put(
+  '/articles/:id',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ARTICLE.UPDATE)],
+  ArticleController.update as any,
+);
+router.delete(
+  '/articles/:id',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ARTICLE.DELETE)],
+  ArticleController.delete,
+);
+
 // ----------
+
+/**
+ * Request routes
+ */
+
+router.get(
+  '/requests',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.READ)],
+  RequestController.index,
+);
+router.post(
+  '/requests',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.CREATE)],
+  RequestController.store as any,
+);
+
+router.get(
+  '/requests/:id',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.READ)],
+  RequestController.show,
+);
+router.put(
+  '/requests/:id',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.UPDATE)],
+  RequestController.update as any,
+);
+router.put(
+  '/requests/:id/validate',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.VALIDATE)],
+  RequestController.validateRequest,
+);
+router.delete(
+  '/requests/:id',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.DELETE)],
+  RequestController.delete,
+);
+
+//-----------
 
 router.get('/protected', [authJwt.shouldBeLogged], (_: Request, res: Response) => {
   res.send('You have access to protected content !! ');

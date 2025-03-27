@@ -15,7 +15,7 @@ export default class Otp extends Model {
   ];
 
   @Column
-    label!: string;
+    email!: string;
 
   @Column
     otp!: string;
