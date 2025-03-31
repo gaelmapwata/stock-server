@@ -41,7 +41,7 @@ export default {
           message: 'Veuillez vous connectez !',
         });
       }
-      if (!decoded.type || decoded.type !== TokenTypeE.MAIN_TOKEN) {
+      if (!decoded || !decoded.type || decoded.type !== TokenTypeE.MAIN_TOKEN) {
         return res.status(409).json({
           msg: 'Invalid token',
         });

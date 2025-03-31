@@ -36,3 +36,9 @@
 2025-03-27 11:05:31 | Auth | user gael.mapwata@ubagroup.com trying to login
 2025-03-27 11:05:31 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
 2025-03-27 11:05:42 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-03-27 11:37:03 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-03-27 11:37:03 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-03-27 11:37:12 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-03-27 16:02:14 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-03-27 16:02:14 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-03-27 16:02:23 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
