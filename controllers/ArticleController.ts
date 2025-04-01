@@ -3,6 +3,7 @@ import { checkSchema } from 'express-validator';
 import articleValidators from '../validators/article.validator';
 import { handleExpressValidators } from '../utils/express.util';
 import Article from '../models/Article';
+import TypeArticle from '../models/TypeArticle';
 
 export default {
   index: async (req: Request, res: Response) => {
@@ -17,6 +18,7 @@ export default {
         ...limitQuery,
         offset,
         order: ['label'],
+        include: [TypeArticle],
       });
 
       const articlesSize = articlesAndCount.count;

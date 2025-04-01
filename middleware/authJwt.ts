@@ -35,7 +35,7 @@ export default {
       });
     }
 
-    return jwt.verify(token, process.env.JWT_SECRET, (err: null, decoded: TokenDecodedI) => {
+    return jwt.verify(token, process.env.JWT_SECRET, async (err: null, decoded: TokenDecodedI) => {
       if (err) {
         res.status(401).json({
           message: 'Veuillez vous connectez !',
@@ -46,20 +46,20 @@ export default {
           msg: 'Invalid token',
         });
       }
-
-      return User
-        .findByPk(decoded.id, { include: [{ model: Role, include: [Permission] }] })
-        .then((user) => {
-          if (!user) {
-            return res.status(401).json({
-              msg: 'This account has not been found',
-            });
-          }
-
-          req.userId = decoded.id;
-          req.user = user;
-          return next();
-        });
+      try {
+        // eslint-disable-next-line max-len
+        const user = await User.findByPk(decoded.id, { include: [{ model: Role, include: [Permission] }] });
+        if (!user) {
+          return res.status(401).json({
+            msg: 'This account has not been found',
+          });
+        }
+        req.userId = decoded.id;
+        req.user = user;
+        return next();
+      } catch (error) {
+        return res.status(500).json({ msg: 'Internal server error' });
+      }
     });
   },
 
