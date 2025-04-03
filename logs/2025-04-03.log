@@ -33,3 +33,12 @@
 2025-04-03 15:39:57 | Request | user (gael.mapwata@ubagroup.com #1) initiate validation of a request, requestId: 7
 2025-04-03 15:43:09 | Request | user (gael.mapwata@ubagroup.com #1) initiate validation of a request, requestId: 7
 2025-04-03 15:43:09 | Request | error occurred when validating  request (7) the validator must be different of request
+2025-04-03 16:18:06 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-04-03 16:18:06 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-04-03 16:18:20 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-04-03 16:29:28 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-04-03 16:29:28 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-04-03 16:29:39 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-04-03 16:36:25 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-04-03 16:36:25 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-04-03 16:36:33 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification

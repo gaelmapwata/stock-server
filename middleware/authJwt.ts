@@ -37,7 +37,7 @@ export default {
 
     return jwt.verify(token, process.env.JWT_SECRET, async (err: null, decoded: TokenDecodedI) => {
       if (err) {
-        res.status(401).json({
+        return res.status(401).json({
           message: 'Veuillez vous connectez !',
         });
       }
