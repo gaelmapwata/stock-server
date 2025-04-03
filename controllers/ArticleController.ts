@@ -35,6 +35,18 @@ export default {
       return res.status(500).json(error);
     }
   },
+
+  getArticles: async (req: Request, res: Response) => {
+    try {
+      const articles = await Article.findAll({
+        include: [TypeArticle],
+      });
+
+      res.status(200).json(articles);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
   store: [
     checkSchema(articleValidators.storeSchema),
     async (req: Request, res: Response) => {

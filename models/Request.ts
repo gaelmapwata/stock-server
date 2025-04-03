@@ -21,6 +21,8 @@ export default class Request extends Model {
     'departmentId',
     'userRequest',
     'userApproved',
+    'success',
+    'error',
   ];
 
   @Column
@@ -28,6 +30,12 @@ export default class Request extends Model {
 
   @Column
     receivedQuantity!: number;
+
+  @Column
+    success!: boolean;
+
+  @Column
+    error!: string;
 
   @ForeignKey(() => Article)
   @Column

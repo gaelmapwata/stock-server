@@ -162,6 +162,13 @@ router.get(
   [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ARTICLE.READ)],
   ArticleController.index,
 );
+
+router.get(
+  '/articles/all',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ARTICLE.READ)],
+  ArticleController.getArticles,
+);
+
 router.post(
   '/articles',
   [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.ARTICLE.CREATE)],
@@ -195,6 +202,12 @@ router.get(
   [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.READ)],
   RequestController.index,
 );
+
+router.get(
+  '/requests/to-validate',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.READ)],
+  RequestController.getRequestsToValidate,
+);
 router.post(
   '/requests',
   [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.CREATE)],
@@ -215,6 +228,11 @@ router.put(
   '/requests/:id/validate',
   [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.VALIDATE)],
   RequestController.validateRequest,
+);
+router.put(
+  '/requests/:id/cancel',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.VALIDATE)],
+  RequestController.cancelRequest,
 );
 router.delete(
   '/requests/:id',
