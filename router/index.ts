@@ -208,6 +208,20 @@ router.get(
   [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.READ)],
   RequestController.getRequestsToValidate,
 );
+
+router.get(
+  '/requests/validated',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.READ)],
+  RequestController.getRequestsValidated,
+);
+
+router.get(
+  '/requests/stats',
+  // eslint-disable-next-line max-len
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.READ_OWN_REQUESTS)],
+  RequestController.getStats,
+);
+
 router.post(
   '/requests',
   [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.CREATE)],
@@ -219,10 +233,16 @@ router.get(
   [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.READ)],
   RequestController.show,
 );
+
 router.put(
   '/requests/:id',
   [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.UPDATE)],
   RequestController.update as any,
+);
+router.put(
+  '/requests/:id/update-quantity-received',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.REQUEST.UPDATE)],
+  RequestController.updateReceivedQuantity,
 );
 router.put(
   '/requests/:id/validate',

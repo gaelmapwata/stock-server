@@ -1,0 +1,23 @@
+2025-04-04 09:56:20 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-04-04 09:56:20 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-04-04 09:56:30 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-04-04 10:47:04 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-04-04 10:47:04 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-04-04 10:47:12 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-04-04 10:47:55 | Request | user (gael.mapwata@ubagroup.com #1) initiate update of quantity received
+2025-04-04 10:49:16 | Request | user (gael.mapwata@ubagroup.com #1) initiate update of quantity received
+2025-04-04 12:02:50 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-04-04 12:02:50 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-04-04 12:02:57 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-04-04 12:09:23 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-04-04 12:09:23 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-04-04 12:09:32 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-04-04 12:20:29 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-04-04 12:20:29 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-04-04 12:20:37 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-04-04 12:34:18 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-04-04 12:34:18 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-04-04 12:34:27 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
+2025-04-04 12:40:49 | Auth | user gael.mapwata@ubagroup.com trying to login
+2025-04-04 12:40:50 | Auth | user gael.mapwata@ubagroup.com successful logged with active directory, otp sended
+2025-04-04 12:40:58 | Auth | user gael.mapwata@ubagroup.com successful logged with otp verification
